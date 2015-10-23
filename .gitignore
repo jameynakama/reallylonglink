@@ -1,0 +1,15 @@
+*.swp
+*.py[cod]
+.DS_Store
+.idea/
+db.*
+
+# Configuration (save READMEs and tests envdir)
+envdir/*/*
+!envdir/*/README.txt
+!envdir/tests/*
+
+# App storage
+cache
+dist
+static
