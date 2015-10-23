@@ -26,3 +26,15 @@ data:
   volumes:
     - /var/lib/postgresql
   command: /bin/true
+
+tests:
+  restart: no
+  build: .
+  ports:
+    - 8000:8000
+  volumes:
+    - .:/reallylonglink/
+    - ./envdir/tests/:/envdir/
+  environment:
+    - PYTHONPATH=/reallylonglink/
+  command: envdir /envdir py.test
