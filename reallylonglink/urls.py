@@ -13,10 +13,18 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from reallylonglink.views import HomeView, RLLRedirectView
+
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'reallylonglink.views.home', name='home'),
+    url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^reallylonglink/(?P<pk>\d+)/$', 'reallylonglink.views.generated_link_view', name='generated_link'),
+    url(r'^{}/(?P<long_link>[{}]+)/$'.format(settings.BASE_REDIRECT_URL,
+                                             settings.LINK_CHARS),
+        RLLRedirectView.as_view(), name='redirect'),
 ]

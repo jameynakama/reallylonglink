@@ -1,3 +1,7 @@
 Django==1.8.5
 psycopg2==2.6.1
 pytest-django==2.9.1
+envdir==0.7
+
+six==1.10.0  # for django-extensions
+django-extensions==1.5.7

@@ -1,0 +1,8 @@
+{% extends 'common/base.html' %}
+
+{% block main %}
+  <p><a href="/">Home</a></p>
+  <p>original: <a href="{{ original_link }}">{{ original_link }}</a></p>
+  <p>really long link: <a href="{{ really_long_link }}">{{ really_long_link }}</a></p>
+  <textarea name="long-link" id="long-link" cols="150" rows="20">{{ really_long_link }}</textarea>
+{% endblock %}

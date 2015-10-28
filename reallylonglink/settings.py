@@ -12,9 +12,10 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import string
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -37,6 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_extensions',
 
     'reallylonglink'
 )
@@ -105,3 +108,57 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '[%(levelname)s] [%(asctime)s] [%(name)s]: %(message)s'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'syslog': {
+            'level': 'DEBUG',
+            'formatter': 'simple',
+            'class': 'logging.handlers.SysLogHandler',
+            'address': '/dev/log',
+            'facility': 'user',
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console', 'syslog'],
+            'level': 'DEBUG' if DEBUG else 'INFO'
+        },
+        'django.db': {
+            'handlers': ['syslog', 'console'],
+            'level': 'INFO',
+            'propagate': False
+        },
+        'django.request': {
+            'handlers': ['syslog', 'console'],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'propagate': False
+        },
+    }
+}
+
+if not os.path.exists('/dev/log'):
+    LOGGING['handlers']['syslog'] = {'class': 'logging.NullHandler'}
+
+
+#
+# App settings
+#
+DOMAIN = 'http://www.reallylong.link/'
+BASE_REDIRECT_URL = 'rll'
+MAX_URL_LENGTH = 1999  # Leave room for optional trailing slash
+LINK_CHARS = string.ascii_letters + string.digits + '_/'
+REALLY_LONG_LINK_LENGTH = MAX_URL_LENGTH - len(DOMAIN) - len(BASE_REDIRECT_URL) - len('//')  # /{{ rll }}/
