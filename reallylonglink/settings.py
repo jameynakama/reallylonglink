@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 SOMETHING = os.environ.get('FFUUU')
+logger.warning(">>>>> {}".format(SOMETHING))
 logger.warning(">>>>> {}".format(dir(envdir)))
 logger.warning(">>>>> {}".format(os.environ))
 if SOMETHING:
