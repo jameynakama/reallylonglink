@@ -13,7 +13,6 @@ import django
 from django.core.handlers.wsgi import WSGIHandler
 
 
-
 class WSGIEnvironment(WSGIHandler):
     def __call__(self, environ, start_response):
         os.environ['FFUUU'] = environ['ENV_LOCATION']
