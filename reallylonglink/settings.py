@@ -10,12 +10,9 @@ import envdir
 logger = logging.getLogger(__name__)
 
 
-SOMETHING = os.environ.get('ENV_LOCATION')
-logger.warning(">>>>> {}".format(SOMETHING))
-logger.warning(">>>>> {}".format(dir(envdir)))
-logger.warning(">>>>> {}".format(os.environ))
-if SOMETHING:
-    envdir.open(SOMETHING)
+ENV_LOCATION = os.environ.get('ENV_LOCATION')
+if ENV_LOCATION:
+    envdir.open(ENV_LOCATION)
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +26,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 
 # Application definition
