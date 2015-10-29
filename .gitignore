@@ -5,9 +5,9 @@
 db.*
 
 # Configuration (save READMEs and tests envdir)
-envdir/*/*
-!envdir/*/README.txt
-!envdir/tests/*
+envdirs/*/*
+!envdirs/*/README.txt
+!envdirs/tests/*
 
 # App storage
 cache
