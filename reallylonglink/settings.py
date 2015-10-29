@@ -159,4 +159,5 @@ DOMAIN = 'http://www.reallylong.link/'
 BASE_REDIRECT_URL = 'rll'
 MAX_URL_LENGTH = 1999  # Leave room for optional trailing slash
 LINK_CHARS = string.ascii_letters + string.digits + '_/'
+LINK_CHARS_PLAIN = string.ascii_letters + string.digits
 REALLY_LONG_LINK_LENGTH = MAX_URL_LENGTH - len(DOMAIN) - len(BASE_REDIRECT_URL) - len('//')  # /{{ rll }}/

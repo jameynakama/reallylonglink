@@ -1,3 +1,5 @@
+import re
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
@@ -16,8 +18,26 @@ class TestEmbiggen(TestCase):
         self.client.post(reverse('home'), data=data)
         assert ReallyLongLink.objects.count() == expected_long_links
 
-    def test_embiggen_generates_2000_char_string(self):
-        """`rll.embiggen()` should generate a 1999 character long string"""
+    def test_embiggen_generates_long_link(self):
+        """`rll.embiggen()` should generate a long string"""
         expected_length = settings.REALLY_LONG_LINK_LENGTH
         self.rll.embiggen()
         assert len(self.rll.long_link) == expected_length
+
+    def test_never_allow_double_slashes(self):
+        """`rll.embiggen()` should never allow two consecutive slashes"""
+        expected_link = re.compile(r'hello/[\w\d]moto')
+        rll = ReallyLongLink.objects.create(original_link='something', long_link='hello//moto')
+        assert expected_link.match(rll.long_link)
+
+    def test_never_allow_long_link_to_begin_with_slash(self):
+        """`rll.embiggen()` should never allow links to begin with slashes"""
+        expected_link = re.compile(r'[\w\d]hello/moto')
+        rll = ReallyLongLink.objects.create(original_link='something', long_link='/hello/moto')
+        assert expected_link.match(rll.long_link)
+
+    def test_never_allow_long_link_to_end_with_slash(self):
+        """`rll.embiggen()` should never allow links to end with slashes"""
+        expected_link = re.compile(r'hello/moto[\w\d]')
+        rll = ReallyLongLink.objects.create(original_link='something', long_link='hello/moto/')
+        assert expected_link.match(rll.long_link)

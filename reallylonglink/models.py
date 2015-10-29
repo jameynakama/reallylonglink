@@ -2,6 +2,8 @@ import random
 
 from django.conf import settings
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 
 class BaseModel(models.Model):
@@ -26,3 +28,14 @@ class ReallyLongLink(BaseModel):
             long_link += random.choice(settings.LINK_CHARS)
         self.long_link = long_link
         self.save()
+
+
+@receiver(pre_save, sender=ReallyLongLink)
+def reduce_slashes(sender, **kwargs):
+    instance = kwargs['instance']
+    if instance.long_link:
+        instance.long_link = instance.long_link.replace('//', '/' + random.choice(settings.LINK_CHARS_PLAIN))
+        if instance.long_link[0] == '/':
+            instance.long_link = random.choice(settings.LINK_CHARS_PLAIN) + instance.long_link[1:]
+        if instance.long_link[-1] == '/':
+            instance.long_link = instance.long_link[:-1] + random.choice(settings.LINK_CHARS_PLAIN)
