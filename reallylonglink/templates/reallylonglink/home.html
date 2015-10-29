@@ -1,9 +1,11 @@
 {% extends 'common/base.html' %}
 
 {% block main %}
+  <h1>Really Long Link</h1>
+  <h3>Link extension for the everyday Net Surfer</h3>
   <form action="" method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="submit">
+    <input type="submit" value="Make it really long, please">
   </form>
 {% endblock %}
