@@ -13,7 +13,7 @@ class BaseModel(models.Model):
 
 
 class ReallyLongLink(BaseModel):
-    original_link = models.CharField(max_length=2000)
+    original_link = models.URLField(max_length=1000)
     long_link = models.CharField(max_length=2000)
 
     def __str__(self):
