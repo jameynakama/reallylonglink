@@ -3,4 +3,5 @@ the desired value of each setting.
 
 For example, consider the resulting file: `$ echo 'True' > DEBUG`
 
+DEBUG
 SECRET_KEY

@@ -10,9 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import string
+
+import envdir
+
+
+ENVDIR_LOCATION = os.environ.get('ENVDIR_LOCATION')
+if ENVDIR_LOCATION:
+    envdir.open(ENVDIR_LOCATION)
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,8 +29,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
