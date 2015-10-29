@@ -8,9 +8,9 @@ import envdir
 logger = logging.getLogger(__name__)
 
 
-ENVDIR_LOCATION = os.environ.get('ENVDIR_LOCATION')
-if ENVDIR_LOCATION:
-    envdir.open(ENVDIR_LOCATION)
+ENV_LOCATION = os.environ.get('ENV_LOCATION')
+if ENV_LOCATION:
+    envdir.open(ENV_LOCATION)
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

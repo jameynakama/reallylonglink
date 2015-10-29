@@ -16,7 +16,7 @@ from django.core.handlers.wsgi import WSGIHandler
 
 class WSGIEnvironment(WSGIHandler):
     def __call__(self, environ, start_response):
-        os.environ['ENVDIR_LOCATION'] = environ['ENVDIR_LOCATION']
+        os.environ['ENV_LOCATION'] = environ['ENV_LOCATION']
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "reallylonglink.settings")
         django.setup()
         return super(WSGIEnvironment, self).__call__(environ, start_response)
