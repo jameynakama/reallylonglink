@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/
 
 import os
 
+import django
 from django.core.handlers.wsgi import WSGIHandler
 
 
@@ -16,7 +17,8 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "reallylonglink.settings")
 
 class WSGIEnvironment(WSGIHandler):
     def __call__(self, environ, start_response):
-        os.environ['SETTINGS_CONFIG'] = environ['SETTINGS_CONFIG']
+        django.setup()
+        os.environ['ENVDIR_LOCATION'] = environ['ENVDIR_LOCATION']
         return super(WSGIEnvironment, self).__call__(environ, start_response)
 
 application = WSGIEnvironment()
