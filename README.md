@@ -1,21 +1,10 @@
-reallylonglink
-==========
+# reallylonglink
 
 Make links into really long links.
 
-Setup
-----------
+## Local setup
 
-Create a postgres user named reallylonglink and a database owned by this user
-and named the same.
+You need docker and docker-compose to run this app locally.
 
-    $ mkvirtualenv reallylonglink --python=`which python3`
-    $ pip install -r requirements.txt
-    $ envdir /path/to/your/envdir ./manage.py migrate
-
-Development
-----------
-
-Commands must be preceded with the envdir location, like so:
-
-    $ envdir /path/to/your/envdir ./manage.py some_radical_command --option sure
+    $ docker-compose build --pull
+    $ docker-compose up web
