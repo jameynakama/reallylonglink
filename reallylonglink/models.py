@@ -19,7 +19,7 @@ class ReallyLongLink(BaseModel):
     long_link = models.CharField(max_length=2000)
 
     def __str__(self):
-        return "{} - {}...".format(self.original_link, self.long_link[:50])
+        return f"{self.original_link} - {self.long_link[:50]}..."
 
     def embiggen(self):
         # TODO: Add http to beginning if not given

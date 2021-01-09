@@ -14,17 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf import settings
-from django.conf.urls import include, url
+from django.urls import include, path, re_path
 from django.contrib import admin
 
-from reallylonglink.views import HomeView, RLLRedirectView
+from reallylonglink import views
 
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', HomeView.as_view(), name='home'),
-    url(r'^reallylonglink/(?P<pk>\d+)/$', 'reallylonglink.views.generated_link_view', name='generated_link'),
-    url(r'^{}/(?P<long_link>[{}]+)/$'.format(settings.BASE_REDIRECT_URL,
-                                             settings.LINK_CHARS),
-        RLLRedirectView.as_view(), name='redirect'),
+    path("admin/", admin.site.urls),
+    path(r'', views.HomeView.as_view(), name='home'),
+    path('reallylonglink/<int:pk>/', views.generated_link_view, name='generated_link'),
+    re_path(r'^{}/(?P<long_link>[{}]+)/$'.format(settings.BASE_REDIRECT_URL,
+                                                 settings.LINK_CHARS),
+            views.RLLRedirectView.as_view(), name='redirect'),
 ]
