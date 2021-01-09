@@ -1,9 +1,7 @@
 from django.contrib import admin
-from reallylonglink.models import ReallyLongLink
+from reallylonglink import models
 
 
+@admin.register(models.ReallyLongLink)
 class ReallyLongLinkAdmin(admin.ModelAdmin):
     pass
-
-
-admin.site.register(ReallyLongLink)

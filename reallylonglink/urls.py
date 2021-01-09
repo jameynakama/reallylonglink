@@ -22,9 +22,13 @@ from reallylonglink import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path(r'', views.HomeView.as_view(), name='home'),
-    path('reallylonglink/<int:pk>/', views.generated_link_view, name='generated_link'),
-    re_path(r'^{}/(?P<long_link>[{}]+)/$'.format(settings.BASE_REDIRECT_URL,
-                                                 settings.LINK_CHARS),
-            views.RLLRedirectView.as_view(), name='redirect'),
+    path(r"", views.HomeView.as_view(), name="home"),
+    path("reallylonglink/<int:pk>/", views.generated_link_view, name="generated_link"),
+    re_path(
+        r"^{}/(?P<long_link>[{}]+)/$".format(
+            settings.BASE_REDIRECT_URL, settings.LINK_CHARS
+        ),
+        views.RLLRedirectView.as_view(),
+        name="redirect",
+    ),
 ]

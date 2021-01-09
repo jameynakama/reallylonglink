@@ -1,10 +1,10 @@
 from django import forms
 
-from reallylonglink.models import ReallyLongLink
+from reallylonglink import models
 
 
 class ReallyLongLinkForm(forms.ModelForm):
     # TODO & TOTEST: URL validation
     class Meta:
-        model = ReallyLongLink
-        fields = ['original_link']
+        model = models.ReallyLongLink
+        fields = ["original_link"]

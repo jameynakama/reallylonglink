@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['RLL_SECRET_KEY']
+SECRET_KEY = os.environ["RLL_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("RLL_DEBUG", False) == "True"
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
-    "reallylonglink"
+    "reallylonglink",
 ]
 
 MIDDLEWARE = [
@@ -84,12 +84,12 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("DB_TEST_NAME", "reallylonglink"),
         "USER": "reallylonglink",
-        "PASSWORD": os.environ['RLL_DB_PASSWORD'],
-        "HOST": os.environ['RLL_DB_HOST'],
+        "PASSWORD": os.environ["RLL_DB_PASSWORD"],
+        "HOST": os.environ["RLL_DB_HOST"],
         "PORT": 5432,
         "TEST": {
             "NAME": os.environ.get("DB_TEST_NAME", "reallylonglink"),
-        }
+        },
     }
 }
 
@@ -136,9 +136,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 #
 # App settings
 #
-DOMAIN = 'http://www.reallylong.link/'
-BASE_REDIRECT_URL = 'rll'
+DOMAIN = "http://www.reallylong.link/"
+BASE_REDIRECT_URL = "rll"
 MAX_URL_LENGTH = 1999  # Leave room for optional trailing slash
-LINK_CHARS = string.ascii_letters + string.digits + '_/'
+LINK_CHARS = string.ascii_letters + string.digits + "_/"
 LINK_CHARS_PLAIN = string.ascii_letters + string.digits
-REALLY_LONG_LINK_LENGTH = MAX_URL_LENGTH - len(DOMAIN) - len(BASE_REDIRECT_URL) - len('//')  # /{{ rll }}/
+REALLY_LONG_LINK_LENGTH = (
+    MAX_URL_LENGTH - len(DOMAIN) - len(BASE_REDIRECT_URL) - len("//")
+)  # /{{ rll }}/

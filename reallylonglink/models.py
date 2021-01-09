@@ -23,7 +23,7 @@ class ReallyLongLink(BaseModel):
 
     def embiggen(self):
         # TODO: Add http to beginning if not given
-        long_link = ''
+        long_link = ""
         for i in range(settings.REALLY_LONG_LINK_LENGTH):
             long_link += random.choice(settings.LINK_CHARS)
         self.long_link = long_link
@@ -32,10 +32,16 @@ class ReallyLongLink(BaseModel):
 
 @receiver(pre_save, sender=ReallyLongLink)
 def reduce_slashes(sender, **kwargs):
-    instance = kwargs['instance']
+    instance = kwargs["instance"]
     if instance.long_link:
-        instance.long_link = instance.long_link.replace('//', '/' + random.choice(settings.LINK_CHARS_PLAIN))
-        if instance.long_link[0] == '/':
-            instance.long_link = random.choice(settings.LINK_CHARS_PLAIN) + instance.long_link[1:]
-        if instance.long_link[-1] == '/':
-            instance.long_link = instance.long_link[:-1] + random.choice(settings.LINK_CHARS_PLAIN)
+        instance.long_link = instance.long_link.replace(
+            "//", "/" + random.choice(settings.LINK_CHARS_PLAIN)
+        )
+        if instance.long_link[0] == "/":
+            instance.long_link = (
+                random.choice(settings.LINK_CHARS_PLAIN) + instance.long_link[1:]
+            )
+        if instance.long_link[-1] == "/":
+            instance.long_link = instance.long_link[:-1] + random.choice(
+                settings.LINK_CHARS_PLAIN
+            )
